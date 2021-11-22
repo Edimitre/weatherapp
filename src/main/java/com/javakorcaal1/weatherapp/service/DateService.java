@@ -18,7 +18,7 @@ public class DateService {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        System.out.println(dtf.format(now));
+
         return dtf.format(now);
 
     }
@@ -27,7 +27,6 @@ public class DateService {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd");
         LocalDateTime now = LocalDateTime.now();
-        System.out.println(dtf.format(now));
         return Integer.parseInt(dtf.format(now));
     }
 }

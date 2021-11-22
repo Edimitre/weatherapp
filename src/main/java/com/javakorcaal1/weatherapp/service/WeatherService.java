@@ -5,6 +5,7 @@ import com.javakorcaal1.weatherapp.model.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,13 +14,23 @@ import java.util.Optional;
 public class WeatherService {
 
 
-    @Autowired
+
     private CityDao cityDao;
 
-    public City addCity(City city){
+    @Autowired
+    public WeatherService(CityDao cityDao) {
+        this.cityDao = cityDao;
+    }
+
+    public void addCity(City city){
 
         cityDao.save(city);
-        return city;
+
+    }
+
+    public City getCityByName(String name){
+
+        return cityDao.findCityByName(name);
     }
 
     public City getCityById(int id) throws CityNotFoundExeption {

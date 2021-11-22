@@ -5,24 +5,25 @@ import javax.persistence.*;
 
 
 @Entity
+@Table(name = "cities_table")
 public class City {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    public Integer id;
 
-    @Column(length = 20, unique = true)
-    private String name ;
+    @Column(length = 20, unique = true, nullable = false)
+    public String name ;
 
-    private int date ;
+    public int date ;
 
-    private double temperature;
+    public double temperature;
 
-    private double windSpeed;
+    public double windSpeed;
 
-    private double visibility;
+    public double visibility;
 
-    private double humidity;
+    public double humidity;
 
 
     public City(String name, int date, double temperature, double windSpeed, double visibility, double humidity) {
@@ -34,8 +35,10 @@ public class City {
         this.humidity = humidity;
     }
 
+    public City() {
+    }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -89,5 +92,19 @@ public class City {
 
     public void setHumidity(double humidity) {
         this.humidity = humidity;
+    }
+
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", temperature=" + temperature +
+                ", windSpeed=" + windSpeed +
+                ", visibility=" + visibility +
+                ", humidity=" + humidity +
+                '}';
     }
 }
