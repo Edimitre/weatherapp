@@ -92,6 +92,7 @@ public class WeatherApi {
 //
 
                       city.setDate(DateService.getTodayDate());
+                      city.setTime(DateService.getCurrentHour());
 //                      Object temp_min = myObject.get("temp_min");
 //                      double min_temp =  Double.parseDouble(temp_min.toString());
 //

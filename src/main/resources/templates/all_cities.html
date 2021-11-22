@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <title>Qytetet</title>
+</head>
+<body>
+
+
+<div>
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/home">WeatherApp</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="/searchCity">Rifresko Te Gjitha</a></li>
+
+      </ul>
+    </div>
+  </nav>
+  <table class="table table-bordered">
+    <tr>
+      <thead class="thead-dark">
+      <th>Qyteti</th>
+      <th>Data</th>
+      <th>Ora</th>
+      <th>Temperatura</th>
+      <th>Shikueshmeria</th>
+      <th>Lageshtia</th>
+      <th>Shpejtesia e eres</th>
+      <th></th>
+      </thead>
+    </tr>
+
+    <tbody class="body">
+    <th:block th:each="city : ${allCitiesList}">
+      <tr>
+        <td class="col-xl-2">[[${city.name}]]</td>
+        <td class="col-xl-2">[[${city.date}]]</td>
+        <td class="col-xl-2">[[${city.time}]]</td>
+        <td class="col-xl-2">[[${city.temperature}]]</td>
+        <td class="col-xl-2">[[${city.visibility}]]</td>
+        <td class="col-xl-2">[[${city.humidity}]]</td>
+        <td class="col-xl-2">[[${city.windSpeed}]]</td>
+        <td>
+            <a class="h4 mr-3" th:href="@{'/user/edit' + ${city.id}}">Rifresko</a>
+            <a class="h4 mr-3" th:href="@{'/user/delete' + ${city.id}}">Fshij</a>
+        </td>
+
+    </th:block>
+    </tbody>
+
+  </table>
+</div>
+
+</body>
+</html>ml>

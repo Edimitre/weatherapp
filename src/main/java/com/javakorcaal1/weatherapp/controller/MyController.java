@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class MyController {
@@ -25,10 +26,10 @@ public class MyController {
     }
 
 
-    @GetMapping("/fillCity")
-    public String fillCity(Model model) throws IOException {
+    @GetMapping("/searchCity")
+    public String searchCity(Model model) throws IOException {
         model.addAttribute("city", new City());
-        return "test";
+        return "search_form";
     }
 
     @RequestMapping(value = "/addCityToDatabase", method = RequestMethod.POST)
@@ -47,16 +48,14 @@ public class MyController {
                     System.out.println("qyeteti u shtua");
                     model.addAttribute("city", selectedCity);
                     return "city_weather_details";
+                }else{
+                    System.out.println("qyteti nuk u gjend");
+                    return "redirect:/fillCity";
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            System.out.println("qyteti nuk u gjend");
-
-
-            return "redirect:/home";
-
+            return "city_weather_details";
         }else {
             model.addAttribute("city", selectedCity);
             return "city_weather_details";
@@ -65,9 +64,11 @@ public class MyController {
     }
 
 
-    @RequestMapping("/cityDetails")
-    public String showCityDetails(Model model, City city){
-        model.addAttribute("city", city);
-        return "city_weather_details";
+    @RequestMapping("/cities")
+    public String showAllCities(Model model){
+        List<City> allCitiesList = weatherService.getAllCities();
+        model.addAttribute("allCitiesList", allCitiesList);
+        return "all_cities";
     }
+
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WeatherApp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/home">WeatherApp</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <h1 align="center">Ketu vendosni emrin e qytetit qe deshironi te shikoni si eshte moti</h1>
+
+    <div align="center">
+        <form action="#" th:action="@{/addCityToDatabase}" method="post" th:object="${city}">
+            <label>Vendos Qytetin</label>
+            <input type="text" th:field="*{name}">
+            <button class="btn btn-lg" type="submit">Kerko</button>
+        </form>
+    </div>
+
+
+
+
+
+
+<!--    <div th:text="${T(com.javakorcaal1.weatherapp.controller.MyController).ggg('nardi')}"></div>-->
+
+</body>
+</html>

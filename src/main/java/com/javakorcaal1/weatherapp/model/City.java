@@ -25,14 +25,16 @@ public class City {
 
     public double humidity;
 
+    public String time;
 
-    public City(String name, int date, double temperature, double windSpeed, double visibility, double humidity) {
+    public City(String name, int date, double temperature, double windSpeed, double visibility, double humidity, String time) {
         this.name = name;
         this.date = date;
         this.temperature = temperature;
         this.windSpeed = windSpeed;
         this.visibility = visibility;
         this.humidity = humidity;
+        this.time = time;
     }
 
     public City() {
@@ -94,6 +96,13 @@ public class City {
         this.humidity = humidity;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     @Override
     public String toString() {
@@ -105,6 +114,7 @@ public class City {
                 ", windSpeed=" + windSpeed +
                 ", visibility=" + visibility +
                 ", humidity=" + humidity +
+                ", time='" + time + '\'' +
                 '}';
     }
 }
