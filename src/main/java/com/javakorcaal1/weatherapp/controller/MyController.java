@@ -2,7 +2,6 @@ package com.javakorcaal1.weatherapp.controller;
 
 import com.javakorcaal1.weatherapp.api.WeatherApi;
 import com.javakorcaal1.weatherapp.model.City;
-import com.javakorcaal1.weatherapp.service.CityNotFoundExeption;
 import com.javakorcaal1.weatherapp.service.DateService;
 import com.javakorcaal1.weatherapp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,7 @@ public class MyController {
                     return "city_weather_details";
                 }else{
                     System.out.println("qyteti nuk u gjend");
-                    return "redirect:/fillCity";
+                    return "redirect:/searchCity";
                 }
             } catch (IOException e) {
                 e.printStackTrace();

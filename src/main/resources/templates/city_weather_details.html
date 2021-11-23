@@ -6,11 +6,19 @@
     <title>Moti</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-</style>
 </head>
 <body>
 <div align="center" class="table-hover">
-    <h2 align="center">Moti ne : <span th:text="${city.name}"></span></h2>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/home">WeatherApp</a>
+            </div>
+        </div>
+        <h2 align="center">Moti ne : <span th:text="${city.name}"></span></h2>
+    </nav>
+
 
     <ul class="list-group">
         <li class="list-group-item"><span>Data : </span><span th:text="${city.date}"></span></li>
