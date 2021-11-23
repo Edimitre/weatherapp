@@ -19,13 +19,11 @@ public class MyController {
     @Autowired
     private WeatherService weatherService;
 
-
     @GetMapping("/home")
     public String homePage(Model model){
         model.addAttribute("city", new City());
         return "index";
     }
-
 
     @GetMapping("/searchCity")
     public String searchCity(Model model) throws IOException {
@@ -78,9 +76,6 @@ public class MyController {
 
     }
 
-
-
-
     @RequestMapping("/cities")
     public String showAllCities(Model model){
         List<City> allCitiesList = weatherService.getAllCities();
@@ -103,6 +98,22 @@ public class MyController {
         model.addAttribute("allCitiesList", allCitiesList);
 
         return "all_cities";
+    }
+
+
+    @RequestMapping(value = "/city/delete{name}")
+    public String delete(@PathVariable String name,Model model){
+
+        City city = weatherService.getCityByName(name);
+        int id  = city.getId();
+        weatherService.deleteCityById(id);
+
+
+        List<City> allCitiesList = weatherService.getAllCities();
+
+        model.addAttribute("allCitiesList", allCitiesList);
+        return "all_cities";
+
     }
 
 }
