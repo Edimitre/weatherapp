@@ -82,20 +82,13 @@ public class MyController {
         return "all_cities";
     }
 
-    @RequestMapping("/refreshAll")
-    public String refreshAll(Model model) throws IOException {
-
+    @RequestMapping("/deleteAll")
+    public String deleteAll(Model model) {
         List<City> allCitiesList = weatherService.getAllCities();
 
-        for (City city:allCitiesList){
-            city = weatherService.getCityByName(city.getName());
-            city = WeatherApi.getCityByApi(city.getName());
-            weatherService.updateCityByName(city.getName(), city.getDate(),
-                    city.getTemperature(), city.getWindSpeed(),
-                    city.getVisibility(), city.getHumidity(), city.getTime());
-        }
-        model.addAttribute("allCitiesList", allCitiesList);
+        weatherService.deleteAllCities();
 
+        model.addAttribute("allCitiesList", allCitiesList);
         return "all_cities";
     }
 
