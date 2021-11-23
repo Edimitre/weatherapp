@@ -58,6 +58,17 @@ public class WeatherService {
 
     }
 
+    public void updateCityByName(String name, int date, double temperature, double windSpeed, double visibility, double humidity, String time) {
+        City city = getCityByName(name);
+        city.setDate(date);
+        city.setTemperature(temperature);
+        city.setWindSpeed(windSpeed);
+        city.setVisibility(visibility);
+        city.setHumidity(humidity);
+        city.setTime(time);
+        cityDao.save(city);
+    }
+
     public void deleteCityById(int id){
 
         cityDao.deleteById(id);

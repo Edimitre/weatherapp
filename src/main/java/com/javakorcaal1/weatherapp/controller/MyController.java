@@ -1,8 +1,9 @@
 package com.javakorcaal1.weatherapp.controller;
 
 import com.javakorcaal1.weatherapp.api.WeatherApi;
-import com.javakorcaal1.weatherapp.dao.CityDao;
 import com.javakorcaal1.weatherapp.model.City;
+import com.javakorcaal1.weatherapp.service.CityNotFoundExeption;
+import com.javakorcaal1.weatherapp.service.DateService;
 import com.javakorcaal1.weatherapp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,19 +34,20 @@ public class MyController {
     }
 
     @RequestMapping(value = "/addCityToDatabase", method = RequestMethod.POST)
-    public String addCityToDatabase(Model model, @RequestParam String name) {
+    public String addCityToDatabase(Model model, @RequestParam String name) throws IOException{
 
         // kontrollo ne database
         City selectedCity = weatherService.getCityByName(name);
 
         // nqs qyteti nuk ekziston ne database
         if (selectedCity==null){
+            System.out.println("nuk eshte city ne database");
             // e mar nga api edhe e vendos ne database
             try {
                 selectedCity = WeatherApi.getCityByApi(name);
                 if (selectedCity != null){
                     weatherService.addCity(selectedCity);
-                    System.out.println("qyeteti u shtua");
+                    System.out.println("qyeteti u mor nga api");
                     model.addAttribute("city", selectedCity);
                     return "city_weather_details";
                 }else{
@@ -57,17 +59,49 @@ public class MyController {
             }
             return "city_weather_details";
         }else {
+            if (selectedCity.getDate()!=DateService.getTodayDate()){
+
+                selectedCity = WeatherApi.getCityByApi(selectedCity.getName());
+
+                weatherService.updateCityByName(selectedCity.getName(), selectedCity.getDate(),
+                        selectedCity.getTemperature(), selectedCity.getWindSpeed(),
+                        selectedCity.getVisibility(), selectedCity.getHumidity(), selectedCity.getTime());
+
+                model.addAttribute("city", selectedCity);
+
+            }
+
             model.addAttribute("city", selectedCity);
             return "city_weather_details";
         }
 
+
     }
+
+
 
 
     @RequestMapping("/cities")
     public String showAllCities(Model model){
         List<City> allCitiesList = weatherService.getAllCities();
         model.addAttribute("allCitiesList", allCitiesList);
+        return "all_cities";
+    }
+
+    @RequestMapping("/refreshAll")
+    public String refreshAll(Model model) throws IOException {
+
+        List<City> allCitiesList = weatherService.getAllCities();
+
+        for (City city:allCitiesList){
+            city = weatherService.getCityByName(city.getName());
+            city = WeatherApi.getCityByApi(city.getName());
+            weatherService.updateCityByName(city.getName(), city.getDate(),
+                    city.getTemperature(), city.getWindSpeed(),
+                    city.getVisibility(), city.getHumidity(), city.getTime());
+        }
+        model.addAttribute("allCitiesList", allCitiesList);
+
         return "all_cities";
     }
 
