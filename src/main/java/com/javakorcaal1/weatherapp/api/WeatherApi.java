@@ -4,10 +4,8 @@ package com.javakorcaal1.weatherapp.api;
 import com.javakorcaal1.weatherapp.model.City;
 import com.javakorcaal1.weatherapp.model.FutureDay;
 import com.javakorcaal1.weatherapp.service.DateService;
-import com.javakorcaal1.weatherapp.service.FutureDayService;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,16 +24,11 @@ public class WeatherApi {
 
     public static List<FutureDay> futureDayList = new ArrayList<>();
 
-    @Autowired
-    public static FutureDayService futureDayService;
-
     public static City city;
 
     public static void main(String[] args) throws IOException {
         getCityByApi("korce");
     }
-
-
 
     public static City getCityByApi(String name) throws IOException {
 
@@ -73,7 +66,7 @@ public class WeatherApi {
               response.append(inputLine);
               JSONObject myResponse = new JSONObject(response.toString());
 
-              city = getCityByConnection(name, myResponse);
+              city = findCityInTheServers(name, myResponse);
 
           }
           bufferedReader.close();
@@ -83,7 +76,7 @@ public class WeatherApi {
         return city;
     }
 
-    public static City getCityByConnection(String name ,JSONObject jsonObject) throws IOException {
+    public static City findCityInTheServers(String name ,JSONObject jsonObject) throws IOException {
 
 
         City city = new City();
@@ -124,54 +117,6 @@ public class WeatherApi {
 
     }
 
-    public static String getNameOfTHeCityByLatitude(double lat, double lon) throws IOException {
-
-        String name = null;
-        String byLatandLong = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid="+API_KEY+"";
-        int status = 0;
-
-        URL url = new URL(byLatandLong);
-
-        connection = (HttpURLConnection) url.openConnection();
-
-        connection.setRequestMethod("GET");
-
-        status = connection.getResponseCode();
-
-        connection.setConnectTimeout(5000);
-
-        if (status == 200){
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-            String inputLine = null;
-
-            StringBuilder response = new StringBuilder();
-            while(true){
-                try {
-                    if ((inputLine = bufferedReader.readLine()) == null) break;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-                response.append(inputLine);
-
-                JSONObject myResponse = new JSONObject(response.toString());
-
-                name = myResponse.get("name").toString();
-
-
-
-
-
-
-            }
-
-
-        }
-        return name;
-    }
 
     public static List<FutureDay> fillFutureDayListByCityName(String cityName) throws IOException {
 
