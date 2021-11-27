@@ -2,49 +2,70 @@ package com.javakorcaal1.weatherapp.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Table(name = "cities_table")
-public class City {
+public class City implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    private Integer id;
 
     @Column(length = 20, unique = true, nullable = false)
-    public String name ;
+    private String name ;
 
-    public int date ;
+    private String country;
 
-    public double temperature;
+    private int date ;
 
-    public double windSpeed;
+    private double temperature;
 
-    public double visibility;
+    private double windSpeed;
 
-    public double humidity;
+    private double visibility;
 
-    public String time;
+    private double humidity;
 
-    public City(String name, int date, double temperature, double windSpeed, double visibility, double humidity, String time) {
+    private double latitude;
+
+    private double longtitude;
+
+    private String refreshTime;
+
+    private int countrycode;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "city_name" , referencedColumnName = "name")
+    private List<FutureDay> futureDays = new ArrayList<>();
+
+    public City() {
+    }
+
+    public City(String name, String country, int date, double temperature, double windSpeed, double visibility, double humidity, double latitude, double longtitude, String refreshTime, int countrycode, List<FutureDay> futureDays) {
         this.name = name;
+        this.country = country;
         this.date = date;
         this.temperature = temperature;
         this.windSpeed = windSpeed;
         this.visibility = visibility;
         this.humidity = humidity;
-        this.time = time;
+        this.latitude = latitude;
+        this.longtitude = longtitude;
+        this.refreshTime = refreshTime;
+        this.countrycode = countrycode;
+        this.futureDays = futureDays;
     }
 
-    public City() {
-    }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -54,6 +75,14 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public int getDate() {
@@ -96,25 +125,43 @@ public class City {
         this.humidity = humidity;
     }
 
-    public String getTime() {
-        return time;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    @Override
-    public String toString() {
-        return "City{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", date=" + date +
-                ", temperature=" + temperature +
-                ", windSpeed=" + windSpeed +
-                ", visibility=" + visibility +
-                ", humidity=" + humidity +
-                ", time='" + time + '\'' +
-                '}';
+    public double getLongtitude() {
+        return longtitude;
+    }
+
+    public void setLongtitude(double longtitude) {
+        this.longtitude = longtitude;
+    }
+
+    public String getRefreshTime() {
+        return refreshTime;
+    }
+
+    public void setRefreshTime(String refreshTime) {
+        this.refreshTime = refreshTime;
+    }
+
+    public int getCountrycode() {
+        return countrycode;
+    }
+
+    public void setCountrycode(int countrycode) {
+        this.countrycode = countrycode;
+    }
+
+    public List<FutureDay> getFutureDays() {
+        return futureDays;
+    }
+
+    public void setFutureDays(List<FutureDay> futureDays) {
+        this.futureDays = futureDays;
     }
 }

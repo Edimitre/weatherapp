@@ -2,6 +2,7 @@ package com.javakorcaal1.weatherapp.controller;
 
 import com.javakorcaal1.weatherapp.api.WeatherApi;
 import com.javakorcaal1.weatherapp.model.City;
+import com.javakorcaal1.weatherapp.model.FutureDay;
 import com.javakorcaal1.weatherapp.service.DateService;
 import com.javakorcaal1.weatherapp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class MyController {
 
         // nqs qyteti nuk ekziston ne database
         if (selectedCity==null){
-            System.out.println("nuk eshte city ne database");
+            System.out.println("qyteti nuk eshte ne database");
             // e mar nga api edhe e vendos ne database
             try {
                 selectedCity = WeatherApi.getCityByApi(name);
@@ -60,9 +61,10 @@ public class MyController {
 
                 selectedCity = WeatherApi.getCityByApi(selectedCity.getName());
 
-                weatherService.updateCityByName(selectedCity.getName(), selectedCity.getDate(),
+                weatherService.updateCityByName(selectedCity.getName(), selectedCity.getCountry(), selectedCity.getDate(),
                         selectedCity.getTemperature(), selectedCity.getWindSpeed(),
-                        selectedCity.getVisibility(), selectedCity.getHumidity(), selectedCity.getTime());
+                        selectedCity.getVisibility(), selectedCity.getHumidity(), selectedCity.getRefreshTime(), selectedCity.getLatitude(), selectedCity.getLongtitude(),
+                        selectedCity.getCountrycode(), selectedCity.getFutureDays());
 
                 model.addAttribute("city", selectedCity);
 
@@ -82,6 +84,24 @@ public class MyController {
         return "all_cities";
     }
 
+    @RequestMapping("/refreshAll")
+    public String refreshAll(Model model) throws IOException {
+
+        List<City> allCitiesList = weatherService.getAllCities();
+
+        for (City city:allCitiesList){
+            city = weatherService.getCityByName(city.getName());
+            city = WeatherApi.getCityByApi(city.getName());
+            weatherService.updateCityByName(city.getName(),city.getCountry(), city.getDate(),
+                    city.getTemperature(), city.getWindSpeed(),
+                    city.getVisibility(), city.getHumidity(),
+                    city.getRefreshTime(),city.getLatitude(),city.getLongtitude(), city.getCountrycode(), city.getFutureDays());
+        }
+        model.addAttribute("allCitiesList", allCitiesList);
+
+        return "all_cities";
+    }
+
     @RequestMapping("/deleteAll")
     public String deleteAll(Model model) {
         List<City> allCitiesList = weatherService.getAllCities();
@@ -91,7 +111,6 @@ public class MyController {
         model.addAttribute("allCitiesList", allCitiesList);
         return "all_cities";
     }
-
 
     @RequestMapping(value = "/city/delete{name}")
     public String delete(@PathVariable String name,Model model){
@@ -105,6 +124,18 @@ public class MyController {
 
         model.addAttribute("allCitiesList", allCitiesList);
         return "all_cities";
+
+    }
+
+    @RequestMapping(value = "/city/more{name}")
+    public String moreDetails(@PathVariable String name,Model model) throws IOException {
+
+        City city = weatherService.getCityByName(name);
+        List<FutureDay> futureDayList = city.getFutureDays();
+
+        model.addAttribute("futureDay", new FutureDay());
+        model.addAttribute("futureDayList", futureDayList);
+        return "more_details";
 
     }
 

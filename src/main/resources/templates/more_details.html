@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Qytetet</title>
+</head>
+<body>
+
+
+<div>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/home">WeatherApp</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/refreshAll">Rifresko Te Gjitha</a></li>
+                <li><a href="/deleteAll">Fshij Te Gjitha</a></li>
+
+            </ul>
+        </div>
+    </nav>
+    <table class="table table-bordered">
+        <tr>
+            <thead class="thead-dark">
+            <th>Data</th>
+            <th>Temperatura</th>
+            <th>Ndjeshmeria</th>
+            <th>lageshtia</th>
+            <th>Shpejtesia e eres</th>
+            <th></th>
+            </thead>
+        </tr>
+
+        <tbody class="body">
+        <th:block th:each="futureDay : ${futureDayList}">
+            <tr>
+                <td class="col-xl-2">[[${futureDay.date}]]</td>
+                <td class="col-xl-2">[[${futureDay.temperature}]]</td>
+                <td class="col-xl-2">[[${futureDay.feelsLike}]]</td>
+                <td class="col-xl-2">[[${futureDay.humidity}]]</td>
+                <td class="col-xl-2">[[${futureDay.windSpeed}]]</td>
+        </th:block>
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>

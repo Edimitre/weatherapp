@@ -16,17 +16,19 @@
                 <a class="navbar-brand" href="/home">WeatherApp</a>
             </div>
         </div>
-        <h2 align="center">Moti ne : <span th:text="${city.name}"></span></h2>
+        <h2 align="center">Moti ne : <span th:text="${city.name}"></span>  <span th:text="${city.country}"></span></h2>
     </nav>
 
 
     <ul class="list-group">
-        <li class="list-group-item"><span>Data : </span><span th:text="${city.date}"></span></li>
-        <li class="list-group-item"><span>Ora : </span><span th:text="${city.time}"></span></li>
+        <li class="list-group-item"><span>Data rifreskimit : </span><span th:text="${city.date}"></span></li>
+        <li class="list-group-item"><span>Ora rifreskimit  : </span><span th:text="${city.refreshTime}"></span></li>
         <li class="list-group-item"><span>Temperatura : </span><span th:text="${city.temperature}"></span></li>
         <li class="list-group-item"><span>Shikueshmeria : </span><span th:text="${city.visibility}"></span></li>
         <li class="list-group-item"><span>Lageshtia : </span><span th:text="${city.humidity}"></span></li>
         <li class="list-group-item"><span>Shpejtesia e eres : </span><span th:text="${city.windSpeed}"></span></li>
+        <li class="list-group-item"><span>latitude : </span><span th:text="${city.latitude}"></span></li>
+        <li class="list-group-item"><span>longtitude : </span><span th:text="${city.longtitude}"></span></li>
 
     </ul>
     <div class=""></div>

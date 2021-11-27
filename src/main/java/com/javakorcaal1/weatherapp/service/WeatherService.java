@@ -2,6 +2,7 @@ package com.javakorcaal1.weatherapp.service;
 
 import com.javakorcaal1.weatherapp.dao.CityDao;
 import com.javakorcaal1.weatherapp.model.City;
+import com.javakorcaal1.weatherapp.model.FutureDay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,6 @@ import java.util.Optional;
 
 @Service
 public class WeatherService {
-
-
 
     private CityDao cityDao;
 
@@ -58,14 +57,19 @@ public class WeatherService {
 
     }
 
-    public void updateCityByName(String name, int date, double temperature, double windSpeed, double visibility, double humidity, String time) {
+    public void updateCityByName(String name, String country, int date, double temperature, double windSpeed, double visibility, double humidity, String refreshTime, double lat, double lon, int countrycode, List<FutureDay> futureDayList) {
         City city = getCityByName(name);
+        city.setCountry(country);
         city.setDate(date);
         city.setTemperature(temperature);
         city.setWindSpeed(windSpeed);
         city.setVisibility(visibility);
         city.setHumidity(humidity);
-        city.setTime(time);
+        city.setRefreshTime(refreshTime);
+        city.setLatitude(lat);
+        city.setLongtitude(lon);
+        city.setCountrycode(countrycode);
+        city.setFutureDays(futureDayList);
         cityDao.save(city);
     }
 

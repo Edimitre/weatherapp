@@ -26,8 +26,9 @@
     <tr>
       <thead class="thead-dark">
       <th>Qyteti</th>
-      <th>Data</th>
-      <th>Ora</th>
+      <th>Shteti</th>
+      <th>Data e rifreskimit</th>
+      <th>Ora e rifreskimit</th>
       <th>Temperatura</th>
       <th>Shikueshmeria</th>
       <th>Lageshtia</th>
@@ -40,14 +41,15 @@
     <th:block th:each="city : ${allCitiesList}">
       <tr>
         <td class="col-xl-2">[[${city.name}]]</td>
+        <td class="col-xl-2">[[${city.country}]]</td>
         <td class="col-xl-2">[[${city.date}]]</td>
-        <td class="col-xl-2">[[${city.time}]]</td>
+        <td class="col-xl-2">[[${city.refreshTime}]]</td>
         <td class="col-xl-2">[[${city.temperature}]]</td>
         <td class="col-xl-2">[[${city.visibility}]]</td>
         <td class="col-xl-2">[[${city.humidity}]]</td>
         <td class="col-xl-2">[[${city.windSpeed}]]</td>
         <td>
-
+          <a class="h4 mr-3" th:href="@{'/city/more' + ${city.name}}">Shiko me shume </a>
             <a class="h4 mr-3" th:href="@{'/city/delete' + ${city.name}}">Fshij</a>
         </td>
 
