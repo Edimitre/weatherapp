@@ -211,7 +211,7 @@ public class WeatherApi {
                 JSONObject myResponse = new JSONObject(response.toString());
 
 
-                // todo krijo future day me pjeset e json
+
                 JSONArray dataList = myResponse.getJSONArray("list");
 
                 FutureDay futureDay1 = getFutureDayByListIndex(dataList,0);
