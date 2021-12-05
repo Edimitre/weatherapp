@@ -1,3 +1,3 @@
 # weatherapp
-WeatherApp made with SpringBoot jpa and free weather REST api
+WeatherApp made with SpringBoot jpa thymeleaf and free openweather REST api
 
